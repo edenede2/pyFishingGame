@@ -5,23 +5,19 @@ import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# Define the scope
-scope = ["https://spreadsheets.google.com/feeds",
-         "https://www.googleapis.com/auth/drive"]
 
-SPREADSHEET_NAME = "FishingGameRes"
-# Authenticate using the credentials.json file
-# Load the credentials JSON from the environment variable
 google_creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
-
-print(google_creds_json)
 if not google_creds_json:
     raise Exception("Missing GOOGLE_CREDENTIALS_JSON environment variable.")
 
-# Parse the JSON string into a dictionary
+# Parse the JSON credentials
 creds_dict = json.loads(google_creds_json)
 
-# Create credentials from the dictionary
+# Create credentials using oauth2client
+scope = ["https://spreadsheets.google.com/feeds",
+         "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+creds_dict = json.loads(google_creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
@@ -29,6 +25,7 @@ client = gspread.authorize(creds)
 spreadsheet = client.open("FishingGameRes")
 worksheet = spreadsheet.worksheet("TrialData")
 
+SPREADSHEET_NAME = "FishingGameRes"
 # Append a row to the sheet
 def append_to_sheet(sheet_name, row_data):
     try:

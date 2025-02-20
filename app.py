@@ -13,6 +13,8 @@ SPREADSHEET_NAME = "FishingGameRes"
 # Authenticate using the credentials.json file
 # Load the credentials JSON from the environment variable
 google_creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+
+print(google_creds_json)
 if not google_creds_json:
     raise Exception("Missing GOOGLE_CREDENTIALS_JSON environment variable.")
 

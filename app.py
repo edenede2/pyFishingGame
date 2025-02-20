@@ -1,6 +1,7 @@
 # app.py
 from flask import Flask, request, jsonify, send_from_directory
 import os
+import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -10,7 +11,16 @@ scope = ["https://spreadsheets.google.com/feeds",
 
 SPREADSHEET_NAME = "FishingGameRes"
 # Authenticate using the credentials.json file
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+# Load the credentials JSON from the environment variable
+google_creds_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+if not google_creds_json:
+    raise Exception("Missing GOOGLE_CREDENTIALS_JSON environment variable.")
+
+# Parse the JSON string into a dictionary
+creds_dict = json.loads(google_creds_json)
+
+# Create credentials from the dictionary
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # Open your spreadsheet (replace with your sheet's name)

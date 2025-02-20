@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Experiment</title>
+        <meta charset="UTF-8">        
+        
+        <link rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media = "screen">
+         <link rel='stylesheet' type='text/css' href='static/FishingGame.css' media = "screen"/>
+        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<link href="https://unpkg.com/survey-jquery@1.9.34/modern.css" type="text/css" rel="stylesheet"/>
+<script src="https://unpkg.com/survey-jquery@1.9.34/survey.jquery.min.js"></script>
+        <script type="text/javascript" src="static/jstat.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.3/mobile-detect.min.js"></script>
+
+          <script>
+            // Load DemogJson.json
+            $.getJSON('/static/jsons/DemogJson.json', function(data) {
+                console.log("DemogJson loaded:", data);
+                // Optionally store it in a global variable, e.g.:
+                window.demogData = data;
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error("Error loading DemogJson.json:", textStatus, error);
+            });
+          
+            // Load JsonQuest.json
+            $.getJSON('/static/jsons/JsonQuest.json', function(data) {
+                console.log("JsonQuest loaded:", data);
+                window.questData = data;
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error("Error loading JsonQuest.json:", textStatus, error);
+            });
+          
+            // Load CompJson.json
+            $.getJSON('/static/jsons/CompJson.json', function(data) {
+                console.log("CompJson loaded:", data);
+                window.compData = data;
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error("Error loading CompJson.json:", textStatus, error);
+            });
+          </script>
+
+             <link rel="icon" href="favicon.ico" type="image/ico" >
+               <meta name="viewport" content="width=device-width">
+    </head>
+    
+    <body >
+        
+       <div id="Main" class="container">
+                      <div id="Top" class ='Top'></div>
+
+            <div class ='Stage' id = 'Stage'>
+                           <div id="surveyContainer"></div>
+
+           </div>
+            <div class ='Bottom' id = 'Bottom'> </div>
+        <script type="text/javascript" src="static/FishingGame.js"></script>
+
+   </div>
+       
+    </body>
+</html>

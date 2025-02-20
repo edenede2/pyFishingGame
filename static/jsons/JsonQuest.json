@@ -1,0 +1,157 @@
+{
+ "title": "Questionnaire",
+ "description": "Please read each of the statements carefully. They refer to thoughts and feelings you may have had about others over the last month. Think about the last month and indicate the extent of these feelings from 1 (Not at all) to 5 (Totally).(N.B. Please do not rate items according to any experiences you may have had under the influence of drugs.)",
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "rating",
+     "name": "question1",
+     "title": "I spent time thinking about friends gossiping about me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question2",
+     "title": " I often heard people referring to me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question3",
+     "title": " I have been upset by friends and colleagues judging me critically.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question4",
+     "title": "People definitely laughed at me behind my back.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question5",
+     "title": "I have been thinking a lot about people avoiding me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question6",
+     "title": "People have been dropping hints for me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question7",
+     "title": "I believed that certain people were not what they seemed.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question8",
+     "title": "People talking about me behind my back upset me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question9",
+     "title": "Certain individuals have had it in for me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question10",
+     "title": " People wanted me to feel threatened, so they stared at me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question11",
+     "title": "I was certain people did things in order to annoy me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question12",
+     "title": " I was convinced there was a conspiracy against me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question13",
+     "title": "I was sure someone wanted to hurt me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question14",
+     "title": " I couldn’t stop thinking about people wanting to confuse me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question15",
+     "title": "I was distressed by being persecuted.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question16",
+     "title": "It was difficult to stop thinking about people wanting to make me feel bad.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question17",
+     "title": "People have been hostile towards me on purpose.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    },
+    {
+     "type": "rating",
+     "name": "question18",
+     "title": "I was angry that someone wanted to hurt me.",
+     "isRequired": true,
+     "minRateDescription": "Not at all",
+     "maxRateDescription": "Totally"
+    }
+   ],
+   "description": "Please read each of the statements carefully. They refer to thoughts and feelings you may have had about others over the last month. Think about the last month and indicate the extent of these feelings from 1 (Not at all) to 5 (Totally).\n(N.B. Please do not rate items according to any experiences you may have had under the influence of drugs.)"
+  }
+ ],
+ "showPageTitles": false
+}

@@ -1,0 +1,44 @@
+.Main {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #DDDDDD;
+    font-family:Arial,Helvetica,sans-serif;
+}
+.DivElements {
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+   }
+
+.myborder {   border-width: 1px;   border-color: lightgrey;   border-style: solid; cursor: pointer;} 
+
+ .Stage {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+
+.FireStyle {
+   
+    background:#fd2424;
+    border-width: 0.5;
+    border-style: solid;
+    border-color:#fd2424;
+}
+.panel-footer {
+    padding: 0 15px;
+    border: none;
+    text-align: center;
+    background-color: #fff;
+}
+.card-footer {
+    padding: 0 15px;
+    border: none;
+    text-align: center;
+    background-color: #fff;
+}

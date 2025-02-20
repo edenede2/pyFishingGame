@@ -1,0 +1,58 @@
+{
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "radiogroup",
+     "name": "question1",
+     "title": "How much bonus will you get for every 50 fish you catch?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "0.10£"
+      },
+      {
+       "value": "2",
+       "text": "0.20£"
+      },
+      {
+       "value": "3",
+       "text": "0.30£"
+      },
+      {
+       "value": "4",
+       "text": "0.40£"
+      }
+     ]
+    },
+    {
+     "type": "radiogroup",
+     "name": "question2",
+     "title": "How many fishing vacations are in this task?",
+     "isRequired": true,
+     "choices": [
+      {
+       "value": "1",
+       "text": "1"
+      },
+      {
+       "value": "2",
+       "text": "2"
+      },
+      {
+       "value": "3",
+       "text": "3"
+      },
+      {
+       "value": "4",
+       "text": "4"
+      }
+     ]
+    }
+   ],
+   "title":"Before we start the task, please answer these 2 comprehension questions:"
+  }
+ ]
+}

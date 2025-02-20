@@ -1,0 +1,49 @@
+ {"title": "Demographic Information",
+ "description": "Please fill some demographic details.",
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "text",
+     "name": "question1",
+        "isRequired": true,
+     "title": "What is your age? ",
+        "validators": [
+                        {
+                            "type": "numeric",
+                            "minValue": 18,
+                            "maxValue": 99
+                        }]
+    
+    },
+    {
+     "type": "dropdown",
+     "name": "question2",
+        "isRequired": true,
+     "title": "What is your gender?",
+     "choices": [
+         "Female",
+         "Male",
+         "Non-binary",
+          "Prefer not to say"
+         ]
+    },
+    {
+     "type": "dropdown",
+     "name": "question5",
+            "isRequired": true,
+     "title": "What is the highest level of education you completed?",
+     "choices": [
+      "Basic ",
+      "High school degree or equivalent (e.g., GED)",
+      "College",
+     "Graduate degree",
+         "Prefer not to say"
+     ]
+    }
+   ]
+
+  }
+ ]
+}

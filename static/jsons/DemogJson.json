@@ -1,0 +1,19 @@
+{
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "rating",
+     "name": "question3",
+     "title": "עד כמה את.ה חש.ה מוצפ.ת רגשית?",
+     "isRequired": true,
+     "rateCount": 6,
+     "rateMax": 6,
+     "minRateDescription": "בכלל לא מוצפ.ת",
+     "maxRateDescription": "מאוד מוצפ.ת"
+    }
+   ]
+  }
+ ]
+}

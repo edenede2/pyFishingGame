@@ -17,6 +17,8 @@ $(document).ready(function() {
     var TrialCounter = 0; // Tracks total trials across blocks
     var ParticipantResponses = []; // Stores participant's responses to the probability estimates
     var AssessmentResponses = []; // Internal tracking array for assessment responses
+    var taskID = randomString(16); // Generate a random task ID
+    
 
     // Probabilities for lakes in each dyad
     var Dyad1_Probabilities = [
@@ -213,6 +215,35 @@ $(document).ready(function() {
             TotalAttempts++;
         }
     
+        // Get the trial information
+        var trial = TrialSequence[blockNum][trialIndex];
+        var chosenSide = choice === 1 ? "left" : "right";
+        
+        // Determine which lake was on which side
+        var leftLake = trial.position === "left" ? 
+            (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]) : 
+            (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]);
+        
+        var rightLake = trial.position === "left" ? 
+            (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]) : 
+            (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]);
+        
+        var chosenLake = choice === 1 ? leftLake : rightLake;
+    
+        // Send trial data
+        sendTrialData({
+            subjectID: SubID,
+            dateTime: new Date().toISOString(),
+            taskID: taskID,
+            blockNum: blockNum + 1,
+            trialNum: TrialCounter,
+            leftLake: leftLake,
+            rightLake: rightLake,
+            chosenSide: chosenSide,
+            chosenLake: chosenLake,
+            reward: reward
+        });
+    
         var resultMessage = reward ? "הצלחת לדוג דג!" : "לא הצלחת היום.";
         var resultImage = reward ? "images/fish.png" : "images/got_nothing.png";
     
@@ -293,31 +324,17 @@ $(document).ready(function() {
         }
         return code;
     }
-    function sendTrialData() {
-        // Construct the data object.
-        // Make sure the keys match what your Flask route expects.
-        var trialData = {
-            ID: SubID,                    // Your participant code
-            TrialNum: TrialCounter,       // The trial number (or you may want to send the trial just finished)
-            Choice: "1",                  // The participant's choice (example: "1" or "2")
-            Side: "left",                 // The side the participant chose (example: "left" or "right")
-            Lake: "Lake01",               // The lake identifier
-            Reward: "1",                  // For example, a reward value (here "1" means success)
-            RT: "1500",                   // Reaction time in milliseconds (as a string or number)
-            Time: Date.now().toString(),  // The current timestamp
-            BlockNum: "1"                 // Which block this trial belongs to
-        };
-    
-        // Send the data via POST
+    function sendTrialData(data) {
         $.ajax({
             type: "POST",
             url: "/insert_trial_data",
-            data: trialData,
+            data: data,
             success: function (response) {
                 console.log("Trial data sent successfully:", response);
             },
             error: function (xhr, status, error) {
                 console.error("Error sending trial data:", error);
+                console.error("Trial data that failed to send:", data);
             }
         });
     }

@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import json
@@ -11,62 +10,44 @@ print(google_creds_json)
 if not google_creds_json:
     raise Exception("Missing GOOGLE_CREDENTIALS_JSON environment variable.")
 
-# Parse the JSON credentials
 creds_dict = json.loads(google_creds_json)
 
-# Create credentials using oauth2client
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
-# creds_dict = json.loads(google_creds_json)
-# creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
-# Open your spreadsheet (replace with your sheet's name)
 spreadsheet = client.open("FishingGameRes")
 worksheet = spreadsheet.worksheet("TrialData")
 
 SPREADSHEET_NAME = "FishingGameRes"
-# Append a row to the sheet
 def append_to_sheet(sheet_name, row_data):
     try:
-        # Open the spreadsheet
         sheet = client.open(SPREADSHEET_NAME).worksheet(sheet_name)
-        # Append the row (gspread uses append_row)
         sheet.append_row(row_data)
-        return 0  # 0 for no error
+        return 0 
     except Exception as e:
         print("Error appending to sheet:", e)
-        return 1  # Return non-zero error code
+        return 1  
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
-# Route for the home page; if you want to serve index.html as your main page:
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
-# Example API endpoint to receive trial data (replacing InsertTrialData.php)
 @app.route('/insert_trial_data', methods=['POST'])
 def insert_trial_data():
-    # Get data from AJAX POST (make sure your JS sends JSON or form data)
     data = request.form.to_dict()
-    # You can also use request.get_json() if sending JSON payloads
-    # Example expected keys: ID, TrialNum, Choice, Side, Lake, Reward, RT, Time, BlockNum
-    # Now pass the data to your Google Sheets helper (see Step 4 below)
     err = append_to_sheet('TrialData', list(data.values()))
-    # Return a JSON response
     return jsonify({'ErrorNo': err})
 
-# Add more endpoints for demographics, questionnaires, etc.
-# For instance:
 @app.route('/insert_demog_data', methods=['POST'])
 def insert_demog_data():
     data = request.form.to_dict()
     err = append_to_sheet('DemogData', list(data.values()))
     return jsonify({'ErrorNo': err})
 
-# Similarly, create endpoints for InsertQuestData, CheckSubCode, FinishCode, etc.
 @app.route('/images/<path:path>')
 def send_images(path):
     return send_from_directory('images', path)

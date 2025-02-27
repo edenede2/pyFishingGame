@@ -297,11 +297,11 @@ $(document).ready(function() {
             $('#Stage').html(Title + Images);
     
             $('#Door1').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, trial.leftLake);
+                handleChoice(blockNum, trialIndex, trial.dyad, 1);
             });
     
             $('#Door2').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, trial.rightLake);
+                handleChoice(blockNum, trialIndex, trial.dyad, 0);
             });
         }
 

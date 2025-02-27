@@ -62,7 +62,7 @@ $(document).ready(function() {
             [0.8, 0.2]
         ];
 
-        var LakeImage = ["Lake01", "Lake05", "Lake03", "Lake04"];
+        var LakeImage = ["Star", "Pacman", "Circle", "Arrow"];
         var LakeName = ["כוכב", "עפיפון", "בייגל", "טרק"];
 
         var TrialSequence = [];

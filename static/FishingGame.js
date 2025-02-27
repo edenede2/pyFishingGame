@@ -72,7 +72,7 @@ $(document).ready(function() {
             `);
 
             $('#submitName').click(function () {
-                var participantName = $('#participantName').val().trim();
+                participantName = $('#participantName').val().trim(); // Update the global variable
                 if (participantName) {
                     console.log("Participant Name:", participantName);
                     showInstructionsPage1(); // Proceed to Instructions Page 2
@@ -429,6 +429,11 @@ $(document).ready(function() {
             return code;
         }
         function sendTrialData(data) {
+            // Add participantName to the data object if it's not already present
+            if (data) {
+                data.participantName = participantName;
+            }
+            
             $.ajax({
                 type: "POST",
                 url: "/insert_trial_data",

@@ -337,15 +337,15 @@ $(document).ready(function() {
             $('#Stage').html(Title + Images);
     
             $('#Door1').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, 1);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.leftLake, 1);
             });
     
             $('#Door2').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, 0);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.rightLake, 0);
             });
         }
 
-        function handleChoice(blockNum, trialIndex, dyad, choice) {
+        function handleChoice(blockNum, trialIndex, dyad, chosenLake, choiceBinary) {
             $('#Stage').empty();
             var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
             
@@ -355,7 +355,7 @@ $(document).ready(function() {
             console.log("Trial Index:", trialIndex);
             console.log("Dyad:", dyad);
             console.log("Choice:", choice);
-            var lakeIndex = (LakeImage.indexOf(choice) % 2 === 0) ? 0 : 1; 
+            var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
             var probability = probabilities[choice];
 
 

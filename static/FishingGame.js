@@ -238,6 +238,7 @@ $(document).ready(function() {
     
             // Reset the flag after assessment
             if (TrialCounter % 10 !== 0) {
+                console.log("Assessment flag reset.");
                 assessmentCompleted = false;
             }
     

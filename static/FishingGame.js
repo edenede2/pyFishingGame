@@ -383,11 +383,8 @@ $(document).ready(function() {
                 (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]) : 
                 (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]);
         
-            
+            var chosenLake = choiceBinary === 1 ? leftLake : rightLake;
     
-            leftImage = leftLake === 'Lake01' ? 'Star' : 'Pacman';
-            rightImage = rightLake === 'Lake03' ? 'Circle' : 'Arrow';
-            var chosenLake = choiceBinary === 1 ? leftImage : rightImage;
             // Send trial data
             sendTrialData({
                 subjectID: participantName,
@@ -395,8 +392,8 @@ $(document).ready(function() {
                 taskID: taskID,
                 blockNum: blockNum + 1,
                 trialNum: TrialCounter,
-                leftLake: leftImage,
-                rightLake: rightImage,
+                leftLake: leftLake,
+                rightLake: rightLake,
                 chosenSide: chosenSide,
                 chosenLake: chosenLake,
                 reward: reward

@@ -35,13 +35,22 @@ $(document).ready(function() {
         var extraTrialsAdded = false; // Flag to track if extra trials have been added
 
         // Probabilities for lakes in each dyad
+        // var Dyad1_Probabilities = [
+        //     [0.8, 0.2], // Block 1
+        //     [0.8, 0.2], // Block 2 
+        //     [0.8, 0.2],// Block 3
+        //     [0.2, 0.8],//block 4 (switched)
+        //     [0.2, 0.8],//block 5
+        //     [0.2, 0.8]  // Block 6 
+        // ];
+
         var Dyad1_Probabilities = [
-            [0.8, 0.2], // Block 1
-            [0.8, 0.2], // Block 2 
-            [0.8, 0.2],// Block 3
-            [0.2, 0.8],//block 4 (switched)
-            [0.2, 0.8],//block 5
-            [0.2, 0.8]  // Block 6 
+            [1, 0], // Block 1
+            [1, 0], // Block 2 
+            [1, 0],// Block 3
+            [1, 0],//block 4 (switched)
+            [1, 0],//block 5
+            [1, 0]  // Block 6 
         ];
 
         var Dyad2_Probabilities = [

@@ -296,15 +296,15 @@ $(document).ready(function() {
             $('#Stage').html(Title + Images);
     
             $('#Door1').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, 1, prob1);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.leftLake);
             });
     
             $('#Door2').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, 2, prob2);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.rightLake);
             });
         }
 
-        function handleChoice(blockNum, trialIndex, dyad, choice, probability) {
+        function handleChoice(blockNum, trialIndex, dyad, choice) {
             $('#Stage').empty();
             var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
             var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 

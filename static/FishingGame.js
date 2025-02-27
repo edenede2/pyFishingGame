@@ -346,11 +346,13 @@ $(document).ready(function() {
             console.log("Trial Index:", trialIndex);
             console.log("Dyad:", dyad);
             console.log("Choice:", choice);
-            var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
+            var lakeIndex = (LakeImage.indexOf(choice) % 2 === 0) ? 0 : 1; 
             var probability = probabilities[lakeIndex];
+
 
             var reward = Math.random() < probability ? 1 : 0;
             SumReward += reward;
+
             currentBlockRewards += reward;
             currentBlockTrials++;
     
@@ -390,10 +392,11 @@ $(document).ready(function() {
     
             var resultMessage = reward ? "הצלחת לדוג דג!" : "לא הצלחת היום.";
             var resultImage = reward ? "images/fish.png" : "images/got_nothing.png";
-    
+            var imageSize = reward ? "50%" : "20%";
+
             $('#Stage').html(`
                 <H2 align="center" dir="rtl">${resultMessage}</H2>
-                <img src="${resultImage}" class="img-responsive center-block" style="max-width: 50%; margin: 20px auto;">
+                <img src="${resultImage}" class="img-responsive center-block" style="max-width: ${imageSize}; margin: 20px auto;">
             `);
             setTimeout(function () {
                 runTrials(TrialSequence[blockNum], blockNum, trialIndex + 1);

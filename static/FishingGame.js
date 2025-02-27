@@ -410,7 +410,7 @@ $(document).ready(function() {
     
             var resultMessage = reward ? "הצלחת לדוג דג!" : "לא הצלחת היום.";
             var resultImage = reward ? "images/fish.png" : "images/got_nothing.png";
-            var imageSize = reward ? "50%" : "20%";
+            var imageSize = reward ? "50%" : "30%";
 
             $('#Stage').html(`
                 <H2 align="center" dir="rtl">${resultMessage}</H2>

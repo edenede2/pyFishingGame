@@ -42,6 +42,13 @@ def insert_trial_data():
     err = append_to_sheet('TrialData', list(data.values()))
     return jsonify({'ErrorNo': err})
 
+
+@app.route('/insert_block_data', methods=['POST'])
+def insert_block_data():
+    data = request.form.to_dict()
+    err = append_to_sheet('BlockData', list(data.values()))
+    return jsonify({'ErrorNo': err})
+
 @app.route('/insert_demog_data', methods=['POST'])
 def insert_demog_data():
     data = request.form.to_dict()

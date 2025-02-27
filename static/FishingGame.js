@@ -30,7 +30,8 @@ $(document).ready(function() {
         var ParticipantResponses = []; // Stores participant's responses to the probability estimates
         var AssessmentResponses = []; // Internal tracking array for assessment responses
         var taskID = randomString(16); // Generate a random task ID
-    
+        var currentBlockRewards = 0;
+        var currentBlockTrials = 0;
 
         // Probabilities for lakes in each dyad
         var Dyad1_Probabilities = [
@@ -246,6 +247,21 @@ $(document).ready(function() {
             // Check if all trials in the block are completed
             if (trialIndex >= trials.length) {
                 console.log(`Block ${blockNum + 1} completed.`);
+                
+                // Send block data before moving to next block
+                sendBlockData({
+                    subjectID: participantName,
+                    taskID: taskID,
+                    blockNum: blockNum + 1,
+                    assessments: AssessmentResponses,
+                    totalReward: currentBlockRewards,
+                    totalTrials: currentBlockTrials
+                });
+                
+                // Reset block-specific counters
+                currentBlockRewards = 0;
+                currentBlockTrials = 0;
+                AssessmentResponses = []; // Clear assessment responses for next block
 
                 // Log the assessment responses at the end of the experiment
                 console.log("Assessment Responses: ", AssessmentResponses);
@@ -313,6 +329,8 @@ $(document).ready(function() {
 
             var reward = Math.random() < probability ? 1 : 0;
             SumReward += reward;
+            currentBlockRewards += reward;
+            currentBlockTrials++;
     
             if (blockNum < 3) {  // Only track for Blocks 1, 2, and 3
                 TotalRewards += reward;
@@ -444,6 +462,29 @@ $(document).ready(function() {
                 error: function (xhr, status, error) {
                     console.error("Error sending trial data:", error);
                     console.error("Trial data that failed to send:", data);
+                }
+            });
+        }
+
+        function sendBlockData(data){
+            if (data) {
+                data.dateTime = new Date().toISOString();
+                data.participantName = participantName;
+            }
+            
+            console.log("Sending block data:", data);
+            
+            $.ajax({
+                type: "POST",
+                url: "/insert_block_data",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function(response) {
+                    console.log("Block data sent successfully:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error sending block data:", error);
+                    console.error("Block data that failed to send:", data);
                 }
             });
         }

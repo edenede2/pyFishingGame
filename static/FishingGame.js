@@ -251,6 +251,7 @@ $(document).ready(function() {
 
                 if (blockNum === 2) { // ✅ Now we check the success rate AFTER Block 3 ends
                     checkLearningCondition();
+                }
                 if (blockNum + 1 < NumBlocks) {
                     Block(blockNum + 1); // Move to the next block
                 } else {
@@ -264,7 +265,6 @@ $(document).ready(function() {
             TrialCounter++; // Increment trial counter for every trial
             var trial = trials[trialIndex];
             Options(blockNum, trialIndex, trial); // Show trial options
-            }
         }
 
         function Options(blockNum, trialIndex, trial) {

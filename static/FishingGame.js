@@ -259,7 +259,10 @@ $(document).ready(function() {
                     dateTime: new Date().toISOString(),
                     taskID: taskID,
                     blockNum: blockNum + 1,
-                    assessments: assessments_res,
+                    assessment_lake_01: assessments_res[0],
+                    assessment_lake_02: assessments_res[1],
+                    assessment_lake_03: assessments_res[2],
+                    assessment_lake_04: assessments_res[3],
                     totalReward: currentBlockRewards,
                     totalTrials: currentBlockTrials
                 });

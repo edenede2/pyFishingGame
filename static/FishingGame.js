@@ -350,11 +350,11 @@ $(document).ready(function() {
             var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
             
             console.log("Probabilities:", probabilities);
-            console.log("Chosen Lake:", choice === 1 ? "left" : "right");
+            console.log("Chosen Lake:", chosenLake === 1 ? "left" : "right");
             console.log("Block Number:", blockNum);
             console.log("Trial Index:", trialIndex);
             console.log("Dyad:", dyad);
-            console.log("Choice:", choice);
+            console.log("Choice:", chosenLake);
             var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
             var probability = probabilities[lakeIndex];
 
@@ -372,7 +372,7 @@ $(document).ready(function() {
     
             // Get the trial information
             var trial = TrialSequence[blockNum][trialIndex];
-            var chosenSide = choice === 1 ? "left" : "right";
+            var chosenSide = choiceBinary === 1 ? "left" : "right";
         
             // Determine which lake was on which side
             var leftLake = trial.position === "left" ? 
@@ -383,7 +383,7 @@ $(document).ready(function() {
                 (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]) : 
                 (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]);
         
-            var chosenLake = choice === 1 ? leftLake : rightLake;
+            var chosenLake = choiceBinary === 1 ? leftLake : rightLake;
     
             // Send trial data
             sendTrialData({

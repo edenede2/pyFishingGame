@@ -356,7 +356,7 @@ $(document).ready(function() {
             console.log("Dyad:", dyad);
             console.log("Choice:", choice);
             var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
-            var probability = probabilities[choice];
+            var probability = probabilities[lakeIndex];
 
 
             var reward = Math.random() < probability ? 1 : 0;

@@ -227,6 +227,7 @@ $(document).ready(function() {
             console.log("Running trials..." + blockNum);
             console.log("Trial Index: " + trialIndex);
             console.log("Trial Counter: " + TrialCounter);
+            console.log("Total trials: " + trials.length);
             // Check if it's time for an assessment
             if (TrialCounter % 10 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 console.log("Starting assessment pages...");

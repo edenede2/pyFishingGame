@@ -62,7 +62,7 @@ $(document).ready(function() {
             [0.8, 0.2]
         ];
 
-        var LakeImage = ["Star", "Pacman", "Circle", "Arrow"];
+        var LakeImage = ["Lake01", "Lake05", "Lake03", "Lake04"];
         var LakeName = ["כוכב", "עפיפון", "בייגל", "טרק"];
 
         var TrialSequence = [];
@@ -383,8 +383,11 @@ $(document).ready(function() {
                 (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]) : 
                 (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]);
         
-            var chosenLake = choiceBinary === 1 ? leftLake : rightLake;
+            
     
+            leftImage = leftLake === 'Lake01' ? 'Star' : 'Pacman';
+            rightImage = rightLake === 'Lake03' ? 'Circle' : 'Arrow';
+            var chosenLake = choiceBinary === 1 ? leftImage : rightImage;
             // Send trial data
             sendTrialData({
                 subjectID: participantName,
@@ -392,8 +395,8 @@ $(document).ready(function() {
                 taskID: taskID,
                 blockNum: blockNum + 1,
                 trialNum: TrialCounter,
-                leftLake: leftLake,
-                rightLake: rightLake,
+                leftLake: leftImage,
+                rightLake: rightImage,
                 chosenSide: chosenSide,
                 chosenLake: chosenLake,
                 reward: reward

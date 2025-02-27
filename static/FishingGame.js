@@ -165,11 +165,16 @@ $(document).ready(function() {
         }
 
         function Block(blockNum) {
-            if (blockNum < NumBlocks) {
-                var trials = TrialSequence[blockNum];
-                runTrials(trials, blockNum, 0); // Start the trials immediately
+            if (blockNum > 0) {
+                showBreakPage(blockNum); // Show break page after Block 1
             } else {
-                End(); // End the experiment after Block 6
+                console.log("Starting Block 1..." + blockNum);
+                if (blockNum < NumBlocks) {
+                    var trials = TrialSequence[blockNum];
+                    runTrials(trials, blockNum, 0); // Start the trials immediately
+                } else {
+                    End(); // End the experiment after Block 6
+                }
             }
         }
 

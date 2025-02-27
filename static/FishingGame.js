@@ -32,6 +32,7 @@ $(document).ready(function() {
         var taskID = randomString(16); // Generate a random task ID
         var currentBlockRewards = 0;
         var currentBlockTrials = 0;
+        var extraTrialsAdded = false; // Flag to track if extra trials have been added
 
         // Probabilities for lakes in each dyad
         var Dyad1_Probabilities = [
@@ -231,7 +232,7 @@ $(document).ready(function() {
             console.log("Trial Counter: " + TrialCounter);
             console.log("Total trials: " + trials.length);
             // Check if it's time for an assessment
-            if (TrialCounter % 10 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
+            if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 console.log("Starting assessment pages...");
                 assessmentCompleted = true; // Set flag to prevent repeat assessments
                 showAssessmentPages(trials, blockNum, trialIndex);
@@ -239,7 +240,7 @@ $(document).ready(function() {
             }
     
             // Reset the flag after assessment
-            if (TrialCounter % 10 !== 0) {
+            if (TrialCounter % 20 !== 0) {
                 console.log("Assessment flag reset.");
                 assessmentCompleted = false;
             }
@@ -267,7 +268,7 @@ $(document).ready(function() {
                     assessment_lake_06: assessments_res[5],
                     assessment_lake_07: assessments_res[6],
                     assessment_lake_08: assessments_res[7],
-                    
+
                     totalReward: currentBlockRewards,
                     totalTrials: currentBlockTrials
                 });
@@ -338,6 +339,13 @@ $(document).ready(function() {
         function handleChoice(blockNum, trialIndex, dyad, choice) {
             $('#Stage').empty();
             var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
+            
+            console.log("Probabilities:", probabilities);
+            console.log("Chosen Lake:", choice === 1 ? "left" : "right");
+            console.log("Block Number:", blockNum);
+            console.log("Trial Index:", trialIndex);
+            console.log("Dyad:", dyad);
+            console.log("Choice:", choice);
             var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
             var probability = probabilities[lakeIndex];
 

@@ -287,11 +287,9 @@ $(document).ready(function() {
             var Images = `<div class="row">
                             <div class="col-sm-6" id="LeftImage">
                                 <img id="Door1" src="images/${leftLake}.png" class="img-responsive center-block" style="width: 80%; height: auto;">
-                                // <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${leftLakeName}</p>
                             </div>
                             <div class="col-sm-6" id="RightImage">
                                 <img id="Door2" src="images/${rightLake}.png" class="img-responsive center-block" style="width: 80%; height: auto;">
-                                // <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${rightLakeName}</p>
                             </div>
                           </div>`;
     

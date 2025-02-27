@@ -248,13 +248,18 @@ $(document).ready(function() {
             if (trialIndex >= trials.length) {
                 console.log(`Block ${blockNum + 1} completed.`);
                 
+                // Save the values of the assessment responses by the lake images
+                assessments_res = [];
+                for (var i = 0; i < AssessmentResponses.length; i++) {
+                    assessments_res.push(AssessmentResponses[i].probability);
+                }
                 // Send block data before moving to next block
                 sendBlockData({
                     subjectID: participantName,
                     dateTime: new Date().toISOString(),
                     taskID: taskID,
                     blockNum: blockNum + 1,
-                    assessments: AssessmentResponses,
+                    assessments: assessments_res,
                     totalReward: currentBlockRewards,
                     totalTrials: currentBlockTrials
                 });

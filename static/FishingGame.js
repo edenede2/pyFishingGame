@@ -21,7 +21,7 @@ $(document).ready(function() {
             console.log('Mobile device detected');
         }
 
-        var NumTrials = 5; // Number of trials per block
+        var NumTrials = 20; // Number of trials per block
         var NumBlocks = 6; // Total number of blocks
         var TotalRewards = 0;  // Cumulative rewards for Blocks 1, 2, and 3
         var TotalAttempts = 0; // Cumulative attempts for Blocks 1, 2, and 3
@@ -50,13 +50,36 @@ $(document).ready(function() {
             [0.8, 0.2]
         ];
 
-        var LakeImage = ["Lake01", "Lake02", "Lake03", "Lake04"];
+        var LakeImage = ["Lake01", "Lake05", "Lake03", "Lake04"];
         var LakeName = ["כוכב", "עפיפון", "בייגל", "טרק"];
 
         var TrialSequence = [];
         var SumReward = 0;
         var Init = (new Date()).getTime();
-        var SubID = CreateCode();
+        // var SubID = CreateCode();
+
+
+        // Show Name Input Page as Instruction Page 1
+        function showNameInputPage() {
+            $('#Stage').empty();
+            $('#Stage').html(`
+                <H2 align="center" dir="rtl">ברוכים הבאים לניסוי</H2>
+                <p dir="rtl" align="center">אנא מלא את שמך המלא</p>
+                <input type="text" id="participantName" class="form-control center-block" style="width: 50%; margin: 10px auto;" placeholder="שם מלא">
+                <button id="submitName" class="btn btn-primary center-block" style="margin-top: 20px;">התחל</button>
+                <p id="nameError" class="text-danger" style="display: none; text-align: center;">יש להזין שם לפני ההמשך</p>
+            `);
+
+            $('#submitName').click(function () {
+                var participantName = $('#participantName').val().trim();
+                if (participantName) {
+                    console.log("Participant Name:", participantName);
+                    showInstructionsPage1(); // Proceed to Instructions Page 2
+                } else {
+                    $('#nameError').show(); // Show error message if the input is empty
+                }
+            });
+        }
 
         // Show Instruction Page 1
         function showInstructionsPage1() {
@@ -76,6 +99,9 @@ $(document).ready(function() {
                 showInstructionsPage2(); // Go to Page 2
             });
         }
+
+        
+
 
         // Show Instruction Page 2
         function showInstructionsPage2() {
@@ -104,10 +130,16 @@ $(document).ready(function() {
             for (var i = 0; i < NumTrials; i++) {
                 var dyad = i % 2 === 0 ? 1 : 2; // Alternate dyads
                 var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
+                // Determine lakes based on the dyad and block
+                var lake1 = dyad === 1 ? LakeImage[0] : LakeImage[2]; // Dyad 1 uses Lake01, Dyad 2 uses Lake03
+                var lake2 = dyad === 1 ? LakeImage[1] : LakeImage[3]; // Dyad 1 uses Lake02, Dyad 2 uses Lake04
+        
+                // Randomize left/right positioning of the lakes
                 sequence.push({
                     dyad: dyad,
                     probabilities: probabilities,
-                    position: Math.random() < 0.5 ? "left" : "right" // Randomize positions
+                    leftLake: Math.random() < 0.5 ? lake1 : lake2,
+                    rightLake: Math.random() < 0.5 ? lake2 : lake1
                 });
             }
             return sequence;
@@ -133,13 +165,58 @@ $(document).ready(function() {
         }
 
         function Block(blockNum) {
-            if (blockNum > 0) {
-                showBreakPage(blockNum);
-            } else {
+            if (blockNum < NumBlocks) {
                 var trials = TrialSequence[blockNum];
-                runTrials(trials, blockNum, 0); // Start the trials for the current block
+                runTrials(trials, blockNum, 0); // Start the trials immediately
+            } else {
+                End(); // End the experiment after Block 6
             }
         }
+
+
+
+
+        function checkLearningCondition() {
+            var blockIndex = 2; // Block 3 (zero-based index)
+            var blockTrials = TrialSequence[blockIndex]; // Get trials for Block 3
+        
+            var blockRewards = 0;
+            var blockAttempts = blockTrials.length; // Total trials in Block 3
+        
+            // Count successes in Block 3
+            for (var i = 0; i < blockAttempts; i++) {
+                if (blockTrials[i].wasRewarded) { // Make sure 'wasRewarded' is set properly in trials
+                    blockRewards++;
+                }
+            }
+        
+            // Calculate success rate after the loop
+            var successRate = (blockRewards / blockAttempts) * 100;
+        
+            console.log(`Block 3 Success Rate: ${successRate}%`);
+        
+            if (successRate < 70 && !extraTrialsAdded) {
+                console.log("Participant did not reach 70% success in Block 3. Adding 20 extra trials.");
+                extraTrialsAdded = true; // Set flag to prevent adding extra trials again
+                addExtraTrials();
+            } else {
+                console.log("Participant met the learning condition in Block 3. Moving to Block 4.");
+                Block(3); // Proceed to Block 4
+            }
+        }
+        
+        
+        
+        
+        // Function to add extra 20 trials before Block 4
+        function addExtraTrials() {
+            var extraTrials = generateTrialSequence(2).slice(0, 20); // Generate 20 additional trials from Block 3
+            runTrials(extraTrials, 2, 0, function () {
+                console.log("Extra trials completed. Moving to Block 4.");
+                Block(3);
+            });
+        }
+
 
         function runTrials(trials, blockNum, trialIndex) {
             // Check if it's time for an assessment
@@ -162,6 +239,8 @@ $(document).ready(function() {
                 // Log the assessment responses at the end of the experiment
                 console.log("Assessment Responses: ", AssessmentResponses);
 
+                if (blockNum === 2) { // ✅ Now we check the success rate AFTER Block 3 ends
+                    checkLearningCondition();
                 if (blockNum + 1 < NumBlocks) {
                     Block(blockNum + 1); // Move to the next block
                 } else {
@@ -175,6 +254,7 @@ $(document).ready(function() {
             TrialCounter++; // Increment trial counter for every trial
             var trial = trials[trialIndex];
             Options(blockNum, trialIndex, trial); // Show trial options
+            }
         }
 
         function Options(blockNum, trialIndex, trial) {
@@ -183,24 +263,25 @@ $(document).ready(function() {
     
             var lake1 = trial.dyad === 1 ? LakeImage[0] : LakeImage[2];
             var lake2 = trial.dyad === 1 ? LakeImage[1] : LakeImage[3];
-            var prob1 = trial.probabilities[0];
-            var prob2 = trial.probabilities[1];
+            // Assign images randomly to left/right
+            var leftLake = Math.random() < 0.5 ? lake1 : lake2;
+            var rightLake = leftLake === lake1 ? lake2 : lake1;
     
-            var leftLake = trial.position === "left" ? lake1 : lake2;
-            var rightLake = trial.position === "left" ? lake2 : lake1;
-    
-            var leftLakeName = trial.position === "left" ? LakeName[LakeImage.indexOf(leftLake)] : LakeName[LakeImage.indexOf(rightLake)];
-            var rightLakeName = trial.position === "left" ? LakeName[LakeImage.indexOf(rightLake)] : LakeName[LakeImage.indexOf(leftLake)];
-    
+            
+            // var leftLakeName = trial.position === "left" ? LakeName[LakeImage.indexOf(leftLake)] : LakeName[LakeImage.indexOf(rightLake)];
+            // var rightLakeName = trial.position === "left" ? LakeName[LakeImage.indexOf(rightLake)] : LakeName[LakeImage.indexOf(leftLake)];
+            trial.leftLake = leftLake;
+            trial.rightLake = rightLake;
+
             var Title = '<H2 align="center" dir="rtl">בחרו אגם:</H2>';
             var Images = `<div class="row">
                             <div class="col-sm-6" id="LeftImage">
                                 <img id="Door1" src="images/${leftLake}.png" class="img-responsive center-block" style="width: 80%; height: auto;">
-                                <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${leftLakeName}</p>
+                                // <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${leftLakeName}</p>
                             </div>
                             <div class="col-sm-6" id="RightImage">
                                 <img id="Door2" src="images/${rightLake}.png" class="img-responsive center-block" style="width: 80%; height: auto;">
-                                <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${rightLakeName}</p>
+                                // <p dir="rtl" align="center" style="font-size: 18px; font-weight: bold;">${rightLakeName}</p>
                             </div>
                           </div>`;
     
@@ -217,7 +298,10 @@ $(document).ready(function() {
 
         function handleChoice(blockNum, trialIndex, dyad, choice, probability) {
             $('#Stage').empty();
-    
+            var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
+            var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
+            var probability = probabilities[lakeIndex];
+
             var reward = Math.random() < probability ? 1 : 0;
             SumReward += reward;
     
@@ -243,7 +327,7 @@ $(document).ready(function() {
     
             // Send trial data
             sendTrialData({
-                subjectID: SubID,
+                subjectID: participantName,
                 dateTime: new Date().toISOString(),
                 taskID: taskID,
                 blockNum: blockNum + 1,
@@ -280,7 +364,7 @@ $(document).ready(function() {
                     <H2 align="center" dir="rtl">הערכת סיכויים</H2>
                     <p dir="rtl">מה הסיכוי לקבל דג באגם זה?</p>
                     <img src="images/${lakes[pageIndex]}.png" class="img-responsive center-block" style="max-width: 50%; margin: 20px auto;">
-                    <p dir="rtl" align="center">${lakeNames[pageIndex]}</p>
+                    // <p dir="rtl" align="center">${lakeNames[pageIndex]}</p>
                     <input type="range" id="probabilitySlider" min="0" max="100" value="50" step="1" style="width: 80%; margin: 20px auto;">
                     <p dir="rtl" align="center">הערכה: <span id="sliderValue">50%</span></p>
                     <button id="nextPage" class="btn btn-primary center-block">הבא</button>
@@ -351,7 +435,7 @@ $(document).ready(function() {
         }
 
         console.log("Initialization complete, starting instructions...");
-        showInstructionsPage1(); // Start the experiment
+        showNameInputPage(); // Start the experiment
 
     } catch (error) {
         console.error("Initialization error:", error);

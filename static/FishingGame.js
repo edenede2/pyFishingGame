@@ -263,6 +263,11 @@ $(document).ready(function() {
                     assessment_lake_02: assessments_res[1],
                     assessment_lake_03: assessments_res[2],
                     assessment_lake_04: assessments_res[3],
+                    assessment_lake_05: assessments_res[4],
+                    assessment_lake_06: assessments_res[5],
+                    assessment_lake_07: assessments_res[6],
+                    assessment_lake_08: assessments_res[7],
+                    
                     totalReward: currentBlockRewards,
                     totalTrials: currentBlockTrials
                 });

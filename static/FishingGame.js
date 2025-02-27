@@ -251,6 +251,7 @@ $(document).ready(function() {
                 // Send block data before moving to next block
                 sendBlockData({
                     subjectID: participantName,
+                    dateTime: new Date().toISOString(),
                     taskID: taskID,
                     blockNum: blockNum + 1,
                     assessments: AssessmentResponses,
@@ -468,7 +469,6 @@ $(document).ready(function() {
 
         function sendBlockData(data){
             if (data) {
-                data.dateTime = new Date().toISOString();
                 data.participantName = participantName;
             }
             
@@ -477,12 +477,11 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "/insert_block_data",
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function(response) {
+                data: data,
+                success: function (response) {
                     console.log("Block data sent successfully:", response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("Error sending block data:", error);
                     console.error("Block data that failed to send:", data);
                 }

@@ -416,7 +416,7 @@ $(document).ready(function() {
                     <H2 align="center" dir="rtl">הערכת סיכויים</H2>
                     <p dir="rtl">מה הסיכוי לקבל דג באגם זה?</p>
                     <img src="images/${lakes[pageIndex]}.png" class="img-responsive center-block" style="max-width: 50%; margin: 20px auto;">
-                    // <p dir="rtl" align="center">${lakeNames[pageIndex]}</p>
+                    <p dir="rtl" align="center">${lakeNames[pageIndex]}</p>
                     <input type="range" id="probabilitySlider" min="0" max="100" value="50" step="1" style="width: 80%; margin: 20px auto;">
                     <p dir="rtl" align="center">הערכה: <span id="sliderValue">50%</span></p>
                     <button id="nextPage" class="btn btn-primary center-block">הבא</button>

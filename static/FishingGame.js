@@ -383,8 +383,17 @@ $(document).ready(function() {
                 (trial.dyad === 1 ? LakeImage[1] : LakeImage[3]) : 
                 (trial.dyad === 1 ? LakeImage[0] : LakeImage[2]);
         
-            var chosenLake = choiceBinary === 1 ? leftLake : rightLake;
-    
+            
+            // var chosenLake = choiceBinary === 1 ? leftLake : rightLake;
+            lakes_name_map = {
+                "Lake01": "Star",
+                "Lake05": "Pakman",
+                "Lake03": "Circle",
+                "Lake04": "Arrow"
+            };
+
+            var chosenImage = lakes_name_map[chosenLake];
+
             // Send trial data
             sendTrialData({
                 subjectID: participantName,
@@ -392,10 +401,10 @@ $(document).ready(function() {
                 taskID: taskID,
                 blockNum: blockNum + 1,
                 trialNum: TrialCounter,
-                leftLake: leftLake,
-                rightLake: rightLake,
+                leftLake: lakes_name_map[leftLake],
+                rightLake: lakes_name_map[rightLake],
                 chosenSide: chosenSide,
-                chosenLake: chosenLake,
+                chosenLake: chosenImage,
                 reward: reward
             });
     

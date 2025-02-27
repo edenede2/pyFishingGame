@@ -21,6 +21,7 @@ $(document).ready(function() {
             console.log('Mobile device detected');
         }
 
+        var participantName = ""; // Participant's name
         var NumTrials = 20; // Number of trials per block
         var NumBlocks = 6; // Total number of blocks
         var TotalRewards = 0;  // Cumulative rewards for Blocks 1, 2, and 3

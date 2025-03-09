@@ -101,8 +101,8 @@ $(document).ready(function() {
                 <H2 align="center" dir="rtl">Instructions</H2>
                 <p dir="rtl">ברוכים הבאים למטלת חופשת הדייג!</p>
                 <p dir="rtl">במהלך החופשה תצאו לשש חופשות דייג בנות 20 ימים
-                <p dir="rtl">בכל יום תצטרכו לבחור אגם לדוג בו מבין שני אגמים שונים.</p>
-                <p dir="rtl">המטרה שלכם היא לדוג כמה שיותר דגים.</p>
+                <p dir="rtl">בכל יום תצטרכו לבחור אגם לדוג בו מבין שני אגמים שונים. כל בחירה שלכם תזכה בדג או לא תזכה בכלום.</p>
+                <p dir="rtl">המטרה שלכם היא לבחור באגם אשר יניב הכי הרבה דגים מבין השניים וכך לצבור את מרב הדגים!</p>
                 <img src="images/Inst1.png" class="img-responsive center-block" style="max-width: 50%; margin: 20px auto;">
                 <button id="nextPage" class="btn btn-primary center-block">הבא</button>
             `);
@@ -392,6 +392,11 @@ $(document).ready(function() {
                 "Lake04": "Arrow"
             };
 
+            sides_to_up_down_map = {
+                "left": "up",
+                "right": "down"
+            };
+
             var chosenImage = lakes_name_map[chosenLake];
 
             // Send trial data
@@ -403,7 +408,7 @@ $(document).ready(function() {
                 trialNum: TrialCounter,
                 leftLake: lakes_name_map[leftLake],
                 rightLake: lakes_name_map[rightLake],
-                chosenSide: chosenSide,
+                chosenSide: sides_to_up_down_map[chosenSide],
                 chosenLake: chosenImage,
                 reward: reward
             });
@@ -510,9 +515,9 @@ $(document).ready(function() {
         }
 
         function sendBlockData(data){
-            if (data) {
-                data.participantName = participantName;
-            }
+            // if (data) {
+            //     data.participantName = participantName;
+            // }
             
             console.log("Sending block data:", data);
             

@@ -337,15 +337,15 @@ $(document).ready(function() {
             $('#Stage').html(Title + Images);
     
             $('#Door1').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, trial.leftLake, 1);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.leftLake, 1, leftLake, rightLake);
             });
     
             $('#Door2').click(function () {
-                handleChoice(blockNum, trialIndex, trial.dyad, trial.rightLake, 0);
+                handleChoice(blockNum, trialIndex, trial.dyad, trial.rightLake, 0, leftLake, rightLake);
             });
         }
 
-        function handleChoice(blockNum, trialIndex, dyad, chosenLake, choiceBinary) {
+        function handleChoice(blockNum, trialIndex, dyad, chosenLake, choiceBinary, leftLakeActual, rightLakeActual) {
             $('#Stage').empty();
             var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
             
@@ -355,6 +355,7 @@ $(document).ready(function() {
             console.log("Trial Index:", trialIndex);
             console.log("Dyad:", dyad);
             console.log("Choice:", chosenLake);
+            console.log("Choice Binary:", choiceBinary);
             var lakeIndex = (LakeImage.indexOf(chosenLake) % 2 === 0) ? 0 : 1; 
             var probability = probabilities[lakeIndex];
 
@@ -406,8 +407,8 @@ $(document).ready(function() {
                 taskID: taskID,
                 blockNum: blockNum + 1,
                 trialNum: TrialCounter,
-                leftLake: lakes_name_map[leftLake],
-                rightLake: lakes_name_map[rightLake],
+                leftLake: lakes_name_map[leftLakeActual],
+                rightLake: lakes_name_map[rightLakeActual],
                 chosenSide: sides_to_up_down_map[chosenSide],
                 chosenLake: chosenImage,
                 reward: reward

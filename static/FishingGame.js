@@ -430,7 +430,7 @@ $(document).ready(function() {
         // Show Assessment Pages for the participant to estimate probabilities
         function showAssessmentPages(trials, blockNum, trialIndex) {
             var lakes = [LakeImage[0], LakeImage[1], LakeImage[2], LakeImage[3]]; // Two from each dyad
-            var lakeNames = ["כוכב", "עפיפון", "בייגל", "טרק"]; // Corresponding lake names
+            var lakeNames = ["כוכב", "פקמן", "בייגל", "חץ"]; // Corresponding lake names
             var currentPage = 0; // Track the current page being shown
     
             // Function to display each lake

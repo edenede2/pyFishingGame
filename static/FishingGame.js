@@ -413,7 +413,28 @@ $(document).ready(function() {
                 chosenLake: chosenImage,
                 reward: reward
             });
-    
+
+            // Store if the trial was rewarded in the trial object for later success rate calculation
+            TrialSequence[blockNum][trialIndex].wasRewarded = reward === 1;
+
+            // Check if we've reached 20 trials in Block 3 and need to decide about extending
+            if (blockNum === 2 && trialIndex === 19) { // Block 3 (zero-indexed) after 20 trials
+                var block3SuccessRate = SumReward / 20;
+                console.log(`Block 3 success rate after 20 trials: ${block3SuccessRate * 100}%`);
+                
+                if (block3SuccessRate < 0.7) {
+                    console.log("Success rate below 70%. Extending Block 3 with 20 more trials.");
+                    
+                    // Generate 20 more trials with the same structure as current Block 3 trials
+                    var extraTrials = generateTrialSequence(2); // Generate trials for Block 3
+                    
+                    // Add these trials to the current Block 3
+                    TrialSequence[blockNum] = TrialSequence[blockNum].concat(extraTrials);
+                    
+                    console.log(`Block 3 extended to ${TrialSequence[blockNum].length} trials`);
+                }
+            }
+
             var resultMessage = reward ? "הצלחת לדוג דג!" : "לא הצלחת היום.";
             var resultImage = reward ? "images/fish.png" : "images/got_nothing.png";
             var imageSize = reward ? "50%" : "30%";
@@ -425,7 +446,7 @@ $(document).ready(function() {
             setTimeout(function () {
                 runTrials(TrialSequence[blockNum], blockNum, trialIndex + 1);
             }, 1500);
-        }
+        } // This closing brace was missing in the original code
 
         // Show Assessment Pages for the participant to estimate probabilities
         function showAssessmentPages(trials, blockNum, trialIndex) {

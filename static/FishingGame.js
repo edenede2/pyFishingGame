@@ -299,7 +299,7 @@ $(document).ready(function() {
                 console.log("Assessment Responses: ", AssessmentResponses);
 
                 if (blockNum === 2) { // ✅ Now we check the success rate AFTER Block 3 ends
-                    checkLearningCondition();
+                    // checkLearningCondition();
                 }
                 if (blockNum + 1 < NumBlocks) {
                     Block(blockNum + 1); // Move to the next block

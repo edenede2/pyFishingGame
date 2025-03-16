@@ -419,7 +419,7 @@ $(document).ready(function() {
 
             // Check if we've reached 20 trials in Block 3 and need to decide about extending
             if (blockNum === 2 && trialIndex === 19) { // Block 3 (zero-indexed) after 20 trials
-                var block3SuccessRate = SumReward / 20;
+                var block3SuccessRate = currentBlockRewards / 20;
                 console.log(`Block 3 success rate after 20 trials: ${block3SuccessRate * 100}%`);
                 
                 if (block3SuccessRate < 0.7) {

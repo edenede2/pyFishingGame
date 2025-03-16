@@ -245,14 +245,15 @@ $(document).ready(function() {
             if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 if (blockNum === 2 && failedLearningCondition) {
                     console.log("Skipping assessment due to failed learning condition.");
-                    runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
+                    // runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
+                    
+                }else {
+                    console.log("Starting assessment pages...");
+                    assessmentCompleted = true; // Set flag to prevent repeat assessments
+                    showAssessmentPages(trials, blockNum, trialIndex);
                     return;
                 }
-                console.log("Starting assessment pages...");
-                assessmentCompleted = true; // Set flag to prevent repeat assessments
-                showAssessmentPages(trials, blockNum, trialIndex);
-                return;
-            }
+                }
     
             // Reset the flag after assessment
             if (TrialCounter % 20 !== 0) {

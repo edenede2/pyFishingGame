@@ -33,6 +33,7 @@ $(document).ready(function() {
         var currentBlockRewards = 0;
         var currentBlockTrials = 0;
         var extraTrialsAdded = false; // Flag to track if extra trials have been added
+        var failedLearningCondition = false; 
 
         // Probabilities for lakes in each dyad
         var Dyad1_Probabilities = [
@@ -242,6 +243,11 @@ $(document).ready(function() {
             console.log("Total trials: " + trials.length);
             // Check if it's time for an assessment
             if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
+                if (blockNum === 2 && failedLearningCondition) {
+                    console.log("Skipping assessment due to failed learning condition.");
+                    runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
+                    return;
+                }
                 console.log("Starting assessment pages...");
                 assessmentCompleted = true; // Set flag to prevent repeat assessments
                 showAssessmentPages(trials, blockNum, trialIndex);
@@ -432,6 +438,8 @@ $(document).ready(function() {
                     TrialSequence[blockNum] = TrialSequence[blockNum].concat(extraTrials);
                     
                     console.log(`Block 3 extended to ${TrialSequence[blockNum].length} trials`);
+
+                    failedLearningCondition = true;
                 }
             }
 

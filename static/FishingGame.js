@@ -245,6 +245,7 @@ $(document).ready(function() {
             if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 if (blockNum === 2 && failedLearningCondition) {
                     console.log("Skipping assessment due to failed learning condition.");
+                    failedLearningCondition = false;
                     // runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
                     
                 }else {

@@ -45,6 +45,7 @@ $(document).ready(function() {
             [0.2, 0.8]  // Block 6 
         ];
 
+        // Probabilities for cases where the participant failed the learning condition
         var Dyad1_Probabilities_fail = [
             [0.8, 0.2], // Block 1
             [0.8, 0.2], // Block 2 
@@ -55,15 +56,6 @@ $(document).ready(function() {
             [0.2, 0.8]  // Block 6 
         ];
 
-
-        // var Dyad1_Probabilities = [
-        //     [1, 0], // Block 1
-        //     [1, 0], // Block 2 
-        //     [1, 0],// Block 3
-        //     [1, 0],//block 4 (switched)
-        //     [1, 0],//block 5
-        //     [1, 0]  // Block 6 
-        // ];
 
         var Dyad2_Probabilities = [
             [0.8, 0.2], // Remains the same across all blocks

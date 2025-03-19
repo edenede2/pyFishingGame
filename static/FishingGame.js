@@ -101,7 +101,7 @@ $(document).ready(function() {
             $('#Stage').html(`
                 <H2 align="center" dir="rtl">Instructions</H2>
                 <p dir="rtl">ברוכים הבאים למטלת חופשת הדייג!</p>
-                <p dir="rtl">במהלך החופשה תצאו לשש חופשות דייג בנות 20 ימים
+                <p dir="rtl">במהלך החופשה תצאו לחופשות דייג בנות 20 ימים
                 <p dir="rtl">בכל יום תצטרכו לבחור אגם לדוג בו מבין שני אגמים שונים. כל בחירה שלכם תזכה בדג או לא תזכה בכלום.</p>
                 <p dir="rtl">המטרה שלכם היא לבחור באגם אשר יניב הכי הרבה דגים מבין השניים וכך לצבור את מרב הדגים!</p>
                 <img src="images/Inst1.png" class="img-responsive center-block" style="max-width: 50%; margin: 20px auto;">
@@ -164,13 +164,18 @@ $(document).ready(function() {
 
         function showBreakPage(blockNum) {
             $('#Stage').empty();
+            // $('#Stage').html(`
+            //     <H2 align="center" dir="rtl">אתם עומדים להתחיל חופשה חדשה!</H2>
+            //     <p dir="rtl">סיימתם את חלק ${blockNum} מתוך ${NumBlocks}.</p>
+            //     <p dir="rtl">לחצו על הכפתור למטה כדי להמשיך לחלק הבא.</p>
+            //     <button id="startNextBlock" class="btn btn-primary center-block">התחל חלק ${blockNum + 1}</button>
+            // `);
             $('#Stage').html(`
                 <H2 align="center" dir="rtl">אתם עומדים להתחיל חופשה חדשה!</H2>
-                <p dir="rtl">סיימתם את חלק ${blockNum} מתוך ${NumBlocks}.</p>
                 <p dir="rtl">לחצו על הכפתור למטה כדי להמשיך לחלק הבא.</p>
                 <button id="startNextBlock" class="btn btn-primary center-block">התחל חלק ${blockNum + 1}</button>
             `);
-    
+
             $('#startNextBlock').click(function () {
                 var trials = TrialSequence[blockNum];
                 runTrials(trials, blockNum, 0); // Start the trials for the current block
@@ -244,9 +249,13 @@ $(document).ready(function() {
             // Check if it's time for an assessment
             if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 if (blockNum === 2 && failedLearningCondition) {
-                    console.log("Skipping assessment due to failed learning condition.");
+                    console.log("Assesment after lowet then 70 success rate");
                     failedLearningCondition = false;
                     // runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
+                    console.log("Starting assessment pages...");
+                    assessmentCompleted = true; // Set flag to prevent repeat assessments
+                    showAssessmentPages(trials, blockNum, trialIndex);
+                    return;
                     
                 }else {
                     console.log("Starting assessment pages...");
@@ -437,9 +446,10 @@ $(document).ready(function() {
                     var extraTrials = generateTrialSequence(2); // Generate trials for Block 3
                     
                     // Add these trials to the current Block 3
-                    TrialSequence[blockNum] = TrialSequence[blockNum].concat(extraTrials);
-                    
-                    console.log(`Block 3 extended to ${TrialSequence[blockNum].length} trials`);
+                    // TrialSequence[blockNum] = TrialSequence[blockNum].concat(extraTrials);
+                    TrialSequence[6] = TrialSequence[6].concat(extraTrials); // Add to the end of the experiment trials as well
+                    NumBlocks += 1; // Extend the total number of blocks
+                    console.log(`Blocks array extended to ${TrialSequence[6].length} trials`);
 
                     failedLearningCondition = true;
                 }

@@ -45,6 +45,17 @@ $(document).ready(function() {
             [0.2, 0.8]  // Block 6 
         ];
 
+        var Dyad1_Probabilities_fail = [
+            [0.8, 0.2], // Block 1
+            [0.8, 0.2], // Block 2 
+            [0.8, 0.2],// Block 3
+            [0.8, 0.2],//block 4 
+            [0.2, 0.8],//block 5 (switched)
+            [0.2, 0.8],//block 5
+            [0.2, 0.8]  // Block 6 
+        ];
+
+
         // var Dyad1_Probabilities = [
         //     [1, 0], // Block 1
         //     [1, 0], // Block 2 
@@ -62,6 +73,18 @@ $(document).ready(function() {
             [0.8, 0.2],
             [0.8, 0.2]
         ];
+
+
+        var Dyad2_Probabilities_fail = [
+            [0.8, 0.2], // Remains the same across all blocks
+            [0.8, 0.2],
+            [0.8, 0.2],
+            [0.8, 0.2],
+            [0.8, 0.2],
+            [0.8, 0.2],
+            [0.8, 0.2]
+        ];
+
 
         var LakeImage = ["Lake01", "Lake05", "Lake03", "Lake04"];
         var LakeName = ["כוכב", "עפיפון", "בייגל", "טרק"];
@@ -250,7 +273,7 @@ $(document).ready(function() {
             if (TrialCounter % 20 === 0 && TrialCounter !== 0 && !assessmentCompleted) {
                 if (blockNum === 2 && failedLearningCondition) {
                     console.log("Assesment after lowet then 70 success rate");
-                    failedLearningCondition = false;
+                    // failedLearningCondition = false;
                     // runTrials(trials, blockNum, trialIndex); // Skip assessment and proceed with trials
                     console.log("Starting assessment pages...");
                     assessmentCompleted = true; // Set flag to prevent repeat assessments
@@ -364,7 +387,12 @@ $(document).ready(function() {
 
         function handleChoice(blockNum, trialIndex, dyad, chosenLake, choiceBinary, leftLakeActual, rightLakeActual) {
             $('#Stage').empty();
-            var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
+            if(failedLearningCondition){
+                var probabilities = dyad === 1 ? Dyad1_Probabilities_fail[blockNum] : Dyad2_Probabilities_fail[blockNum];
+            }else{
+                var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
+            }
+            // var probabilities = dyad === 1 ? Dyad1_Probabilities[blockNum] : Dyad2_Probabilities[blockNum];
             
             console.log("Probabilities:", probabilities);
             console.log("Chosen Lake:", chosenLake === 1 ? "left" : "right");

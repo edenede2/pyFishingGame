@@ -447,7 +447,8 @@ $(document).ready(function() {
                     
                     // Add these trials to the current Block 3
                     // TrialSequence[blockNum] = TrialSequence[blockNum].concat(extraTrials);
-                    TrialSequence[6] = TrialSequence[6].concat(extraTrials); // Add to the end of the experiment trials as well
+                    TrialSequence.push(extraTrials);
+
                     NumBlocks += 1; // Extend the total number of blocks
                     console.log(`Blocks array extended to ${TrialSequence[6].length} trials`);
 
